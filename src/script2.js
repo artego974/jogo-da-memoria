@@ -1,13 +1,13 @@
 const gameBoard = document.getElementById('gameBoard');
-const nextLevelBtn = document.getElementById('nextLevelBtn');
 
 const pairs = [
-    { question: 'Quantos mols em 88 g de CO₂?', answer: '2 mols' },
-    { question: 'Quantos mols em 36 g de H₂O?', answer: '2 mols' },
-    { question: 'Quantos mols em 120 g de Ca?', answer: '3 mols' },
-    { question: 'Quantos mols em 111 g de CO₂?', answer: '2.5 mols' }
+    { question: '0,5 mol de O₂?', answer: '3,011 × 10²³ moléculas' },
+    { question: '2 mols de NH₃?', answer: '1,204 × 10²⁴ moléculas' },
+    { question: '0,25 mol de gás oxigênio?', answer: '1,5055 × 10²³ moléculas' },
+    { question: ' 0,75 mol de C₂H₆?', answer: '4,5165 × 10²³ moléculas' }
 ];
 
+// Criar array com perguntas e respostas
 let cardsArray = [];
 
 pairs.forEach(pair => {
@@ -15,10 +15,10 @@ pairs.forEach(pair => {
     cardsArray.push({ text: pair.answer, pairId: pair.question });
 });
 
-// Fisher-Yates shuffle
+// ✅ Embaralhar com Fisher-Yates
 function shuffle(array) {
-    for (let i = array.length -1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i +1));
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
@@ -28,8 +28,8 @@ shuffle(cardsArray);
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
-let matchesFound = 0;
 
+// Criar as cartas no DOM
 cardsArray.forEach(data => {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -64,10 +64,6 @@ function checkForMatch() {
 
     if (isMatch) {
         disableCards();
-        matchesFound++;
-        if (matchesFound === pairs.length) {
-            showNextLevelBtn();
-        }
     } else {
         unflipCards();
     }
@@ -95,13 +91,3 @@ function unflipCards() {
 function resetBoard() {
     [firstCard, secondCard, lockBoard] = [null, null, false];
 }
-
-function showNextLevelBtn() {
-    nextLevelBtn.style.display = 'inline-block';
-}
-
-nextLevelBtn.addEventListener('click', () => {
-    alert('Parabéns! Indo para a próxima fase...');
-    // Aqui pode ser um redirecionamento, por exemplo:
-    window.location.href = 'index2.html';
-});
