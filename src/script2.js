@@ -4,7 +4,7 @@ const pairs = [
     { question: '0,5 mol de O₂?', answer: '3,011 × 10²³ moléculas' },
     { question: '2 mols de NH₃?', answer: '1,204 × 10²⁴ moléculas' },
     { question: '0,25 mol de gás oxigênio?', answer: '1,5055 × 10²³ moléculas' },
-    { question: ' 0,75 mol de C₂H₆?', answer: '4,5165 × 10²³ moléculas' }
+    { question: '0,75 mol de C₂H₆?', answer: '4,5165 × 10²³ moléculas' }
 ];
 
 // Criar array com perguntas e respostas
@@ -73,6 +73,16 @@ function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
     resetBoard();
+
+    // ✅ Verificar se todas as cartas estão viradas
+    const allFlipped = document.querySelectorAll('.card.flipped').length === cardsArray.length;
+
+    if (allFlipped) {
+        setTimeout(() => {
+            alert('Parabéns! Você completou o jogo!');
+            document.getElementById('nextLevelBtn').style.display = 'block';
+        }, 300);
+    }
 }
 
 function unflipCards() {
